@@ -1,0 +1,47 @@
+
+> ankit-soler-power@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/21) ...
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/projects". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at o (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\.next\server\chunks\471.js:1:10472)
+    at d (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\.next\server\chunks\471.js:1:21317)
+    at c (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\.next\server\app\projects\page.js:1:1814)
+    at nj (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47011)
+    at nM (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47718)
+    at nM (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61547)
+    at nL (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64547)
+
+Error occurred prerendering page "/projects". Read more: https://nextjs.org/docs/messages/prerender-error
+
+   Generating static pages (5/21) 
+   Generating static pages (10/21) 
+   Generating static pages (15/21) 
+Stats error: B [Error]: Dynamic server usage: Route /api/admin/stats couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:21778)
+    at Object.get (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:29465)
+    at C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\.next\server\app\api\franchise\[id]\route.js:1:2317
+    at a (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\.next\server\app\api\franchise\[id]\route.js:1:2437)
+    at d (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\.next\server\app\api\admin\stats\route.js:1:756)
+    at C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:38417
+    at C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093) {
+  description: "Route /api/admin/stats couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+ ✓ Generating static pages (21/21)
+
+> Export encountered errors on following paths:
+	/projects/page: /projects

@@ -1,0 +1,11 @@
+{
+  "/page": "app/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/services/page": "app/services/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/api/projects/route": "app/api/projects/route.js",
+  "/about/page": "app/about/page.js",
+  "/franchise/page": "app/franchise/page.js",
+  "/api/franchise/route": "app/api/franchise/route.js"
+}
