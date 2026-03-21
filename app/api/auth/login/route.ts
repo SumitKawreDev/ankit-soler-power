@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Admin from '@/models/Admin';
@@ -32,7 +34,7 @@ export async function POST(req: NextRequest) {
 
     const token = signToken({ id: admin._id.toString(), userId: admin.userId });
 
-    const response = NextResponse.json({ success: true, message: 'Login successful' });
+    const response = NextResponse.json({ success: true, message: 'Login successful', token });
     response.cookies.set('admin_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

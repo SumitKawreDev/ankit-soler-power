@@ -31,6 +31,210 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
+/* ────────────────────────── Solar Hero Animation ────────────────────────── */
+function SolarHeroAnimation() {
+  return (
+    <div className="relative w-full h-full flex items-center justify-center overflow-visible">
+      {/* Animated Sun */}
+      <motion.div
+        className="absolute top-2 right-2 md:top-4 md:right-4 lg:top-8 lg:right-8 w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      >
+        <svg viewBox="0 0 120 120" className="w-full h-full text-accent">
+          <circle cx="60" cy="60" r="25" fill="currentColor" />
+          {[...Array(12)].map((_, i) => (
+            <motion.line
+              key={i}
+              x1="60"
+              y1="60"
+              x2={60 + 45 * Math.cos((i * 30 * Math.PI) / 180)}
+              y2={60 + 45 * Math.sin((i * 30 * Math.PI) / 180)}
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+            />
+          ))}
+        </svg>
+      </motion.div>
+
+      {/* Sun Rays Animation */}
+      <div className="absolute top-8 right-8 w-32 h-32 pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 bg-gradient-to-b from-accent/40 to-transparent"
+            style={{
+              height: '100px',
+              left: `${10 + i * 15}%`,
+              top: '80px',
+              transformOrigin: 'top center',
+              transform: `rotate(${-30 + i * 12}deg)`,
+            }}
+            animate={{
+              opacity: [0.2, 0.6, 0.2],
+              scaleY: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Solar Panel Array */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-[320px]"
+      >
+        <svg viewBox="0 0 320 220" fill="none" className="w-full h-auto">
+          {/* Solar Panel Row 1 */}
+          <g transform="translate(20, 80)">
+            {/* Panel Frame */}
+            <rect x="0" y="0" width="280" height="100" rx="4" fill="#023d2a" stroke="#034d35" strokeWidth="2" />
+            
+            {/* Panel Cells */}
+            {[0, 1, 2, 3, 4, 5].map((col) => (
+              <g key={col}>
+                <rect 
+                  x={10 + col * 45} 
+                  y="10" 
+                  width="40" 
+                  height="35" 
+                  fill="#0a5c40" 
+                  stroke="#023d2a" 
+                  strokeWidth="1"
+                />
+                <rect 
+                  x={10 + col * 45} 
+                  y="50" 
+                  width="40" 
+                  height="35" 
+                  fill="#0a5c40" 
+                  stroke="#023d2a" 
+                  strokeWidth="1"
+                />
+                {/* Cell reflection */}
+                <motion.rect
+                  x={12 + col * 45}
+                  y="12"
+                  width="36"
+                  height="31"
+                  fill="url(#panelGradient)"
+                  initial={{ opacity: 0.3 }}
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: col * 0.2 }}
+                />
+              </g>
+            ))}
+            
+            {/* Stand */}
+            <rect x="130" y="100" width="20" height="40" fill="#666" />
+            <rect x="100" y="140" width="80" height="10" fill="#555" />
+          </g>
+
+          {/* Energy Particles */}
+          {[0, 1, 2, 3, 4].map((i) => (
+            <motion.circle
+              key={i}
+              cx={40 + i * 50}
+              cy="75"
+              r="5"
+              fill="#f5a623"
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ 
+                opacity: [0, 1, 0],
+                y: [0, -30]
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.3,
+                ease: "easeOut"
+              }}
+            />
+          ))}
+
+          {/* Electricity Flow Lines */}
+          <motion.path
+            d="M 140 150 L 140 180 L 180 180"
+            stroke="#f5a623"
+            strokeWidth="3"
+            fill="none"
+            strokeDasharray="10 5"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+
+          {/* Lightning Bolt */}
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+          >
+            <polygon points="190,170 200,185 195,185 202,200 185,190 190,190 183,170" fill="#f5a623" />
+          </motion.g>
+
+          {/* Ground Line */}
+          <line x1="0" y1="210" x2="320" y2="210" stroke="#023d2a" strokeWidth="2" opacity="0.3" />
+          
+          {/* Gradient Definition */}
+          <defs>
+            <linearGradient id="panelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#1a7a5c" />
+              <stop offset="100%" stopColor="#0a5c40" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </motion.div>
+
+      {/* Floating Energy Icons */}
+      <motion.div
+        className="absolute top-1/3 left-8"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg width="45" height="45" viewBox="0 0 24 24" fill="#f5a623" opacity="0.8">
+          <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/>
+        </svg>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-1/4 right-12"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+      >
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="#ffffff" opacity="0.4">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
+          <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+        </svg>
+      </motion.div>
+
+      {/* Clean Energy Badge */}
+      <motion.div
+        className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2 border border-white/20"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+          <span className="text-white text-sm font-medium">100% Clean Energy</span>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 /* ────────────────────────── section animation wrapper ────────────────────────── */
 function Section({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   return (
@@ -43,6 +247,155 @@ function Section({ children, className = '', delay = 0 }: { children: React.Reac
     >
       {children}
     </motion.section>
+  );
+}
+
+/* ────────────────────────── We Serve Industries Section ────────────────────────── */
+function IndustriesSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const industries = [
+    {
+      name: 'Textile Industry',
+      icon: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+      description: 'High-capacity solar installations for textile mills and garment factories.',
+    },
+    {
+      name: 'Automotive Industry',
+      icon: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 10l2-5h10l2 5v7H5v-7z" />
+          <circle cx="7.5" cy="17.5" r="1.5" />
+          <circle cx="16.5" cy="17.5" r="1.5" />
+        </svg>
+      ),
+      description: 'Powering automotive manufacturing with sustainable solar energy solutions.',
+    },
+    {
+      name: 'Pharmaceutical Industry',
+      icon: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
+      ),
+      description: 'Reliable solar power for pharmaceutical plants and research facilities.',
+    },
+    {
+      name: 'IT Parks',
+      icon: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      ),
+      description: 'Clean energy solutions for tech campuses and data centers.',
+    },
+    {
+      name: 'Factories / Manufacturing Plants',
+      icon: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      ),
+      description: 'Industrial-grade solar installations for maximum energy efficiency.',
+    },
+    {
+      name: 'Agriculture Sector',
+      icon: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2L2 7l10 5 10-5-10-5z" />
+        </svg>
+      ),
+      description: 'Solar pumping and irrigation solutions for modern farming.',
+    },
+  ];
+
+  const slidesPerView = 3;
+  const totalSlides = Math.ceil(industries.length / slidesPerView);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const visibleIndustries = industries.slice(
+    currentSlide * slidesPerView,
+    currentSlide * slidesPerView + slidesPerView
+  );
+
+  return (
+    <Section className="section-padding bg-primary">
+      <div className="container-max">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10">
+          <div>
+            <span className="text-accent font-semibold text-sm tracking-wider uppercase mb-3 block">Industries We Work With</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              We Serve <span className="text-accent">Industries</span>
+            </h2>
+          </div>
+
+          {/* Navigation Arrow */}
+          <div className="mt-4 md:mt-0">
+            <button
+              onClick={nextSlide}
+              className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 border border-white/20"
+              aria-label="Next industries"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Industry Cards Carousel */}
+        <div className="overflow-hidden">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {visibleIndustries.map((industry, index) => (
+              <motion.div
+                key={industry.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="group bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center text-accent mb-5 group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                  {industry.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{industry.name}</h3>
+                <p className="text-green-100 text-sm leading-relaxed">{industry.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: totalSlides }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                currentSlide === index ? 'w-8 bg-accent' : 'bg-white/30 hover:bg-white/50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </Section>
   );
 }
 
@@ -144,33 +497,26 @@ export default function HomePage() {
                   View Projects
                 </Link>
               </motion.div>
+
+              {/* Solar Animation - Mobile */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="md:hidden mt-8 relative h-[300px] w-full"
+              >
+                <SolarHeroAnimation />
+              </motion.div>
             </div>
 
-            {/* Hero stat cards */}
+            {/* Solar Animation - Desktop & Tablet */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="hidden lg:grid grid-cols-2 gap-4"
+              className="hidden md:block relative h-[350px] lg:h-[500px] w-full"
             >
-              {[
-                { value: '500+', label: 'Projects Installed', icon: '☀️' },
-                { value: '20 MW', label: 'Installed Capacity', icon: '⚡' },
-                { value: '13+', label: 'Franchise Locations', icon: '📍' },
-                { value: '10+', label: 'Years Experience', icon: '🏆' },
-              ].map((card, i) => (
-                <motion.div
-                  key={card.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-                  className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/15 transition-all"
-                >
-                  <span className="text-2xl mb-2 block">{card.icon}</span>
-                  <p className="text-2xl font-bold text-white mb-1">{card.value}</p>
-                  <p className="text-green-200 text-sm">{card.label}</p>
-                </motion.div>
-              ))}
+              <SolarHeroAnimation />
             </motion.div>
           </div>
         </div>
@@ -332,6 +678,9 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+
+      {/* ─── WE SERVE INDUSTRIES ─── */}
+      <IndustriesSection />
 
       {/* ─── FEATURED PROJECTS ─── */}
       <Section className="section-padding bg-white">

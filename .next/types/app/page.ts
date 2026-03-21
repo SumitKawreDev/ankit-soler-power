@@ -1,4 +1,4 @@
-// File: C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\app\page.tsx
+// File: F:\ankit-soler-power\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -7,7 +7,9 @@ export interface ILead extends Document {
   location: string;
   message?: string;
   category: 'commercial' | 'residential' | 'franchise';
-  electricityBillUrl?: string;
+  electricityBillPath?: string;
+  companyName?: string;
+  occupation?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,7 +22,9 @@ const LeadSchema = new Schema<ILead>(
     location: { type: String, required: true, trim: true },
     message: { type: String },
     category: { type: String, enum: ['commercial', 'residential', 'franchise'], required: true },
-    electricityBillUrl: { type: String },
+    electricityBillPath: { type: String },
+    companyName: { type: String, trim: true },
+    occupation: { type: String, trim: true },
   },
   { timestamps: true }
 );

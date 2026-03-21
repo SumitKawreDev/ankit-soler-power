@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
+
+import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Lead from '@/models/Lead';
 import Project from '@/models/Project';

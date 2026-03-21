@@ -1,4 +1,4 @@
-// File: C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\app\layout.tsx
+// File: F:\ankit-soler-power\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

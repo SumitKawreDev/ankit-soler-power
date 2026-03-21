@@ -4,149 +4,227 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import SiteLayout from '@/components/SiteLayout';
 
+// Service data for the three main cards with icons
 const services = [
     {
-        title: 'Commercial Solar Installation',
-        description: 'Enterprise-grade solar solutions for commercial properties including hotels, factories, industrial plants, warehouses, and commercial buildings. We handle everything from site assessment to commissioning.',
-        features: ['Site Assessment & Design', 'Custom Panel Configuration', 'Grid-Tie / Off-Grid Systems', 'Net Metering Setup', 'Government Subsidy Assistance', 'Maintenance & Support'],
+        id: 'commercial',
+        title: 'Commercial Solar Power',
+        description: 'Enterprise-grade solar solutions for businesses, factories, and commercial buildings.',
         icon: (
-            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
         ),
-        highlight: true,
     },
     {
-        title: 'Residential Solar Systems',
-        description: 'Affordable and efficient rooftop solar panel systems for homes and housing societies. Reduce your electricity bills by up to 90% and contribute to a cleaner environment.',
-        features: ['Rooftop Solar Panels', 'Battery Backup Solutions', 'Smart Monitoring System', 'Low Maintenance', 'Up to 25 Years Warranty', 'EMI Options Available'],
+        id: 'residential',
+        title: 'Residential Solar Power',
+        description: 'Affordable rooftop solar systems for homes, apartments, and housing societies.',
         icon: (
-            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
         ),
-        highlight: false,
     },
     {
-        title: 'Solar Franchise Program',
-        description: 'Join India\'s fastest-growing solar franchise network. We provide a complete business-in-a-box model with training, brand support, leads, and technical assistance.',
-        features: ['Proven Business Model', 'Complete Training', 'Marketing & Brand Support', 'Lead Generation', 'Technical Back-end', 'Low Investment Entry'],
+        id: 'franchise',
+        title: 'Solar Franchise Programme',
+        description: 'Join our network and start your own solar business with complete support.',
         icon: (
-            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
         ),
-        highlight: false,
     },
 ];
 
-const process_steps = [
-    { step: '01', title: 'Consultation', desc: 'Free site visit and energy audit to understand your requirements.' },
-    { step: '02', title: 'Design & Proposal', desc: 'Custom solar system design with ROI projections and detailed quotation.' },
-    { step: '03', title: 'Installation', desc: 'Professional installation by certified engineers with quality components.' },
-    { step: '04', title: 'Commissioning', desc: 'System testing, net metering setup, and handover with full documentation.' },
+// Expertise areas with industry-matching images
+const expertiseAreas = [
+    {
+        title: 'Factory Installations',
+        description: 'Our factory solar installations help manufacturing units significantly reduce electricity costs and improve energy efficiency. We design systems that can power heavy machinery, production lines, and facility operations. With rising electricity tariffs, factories can save up to 70% on energy bills while ensuring uninterrupted power supply for critical operations. Our industrial-grade solar panels are built to withstand harsh factory environments and deliver consistent performance for 25+ years.',
+        image: 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=800&q=80',
+    },
+    {
+        title: 'IT Park Solar Systems',
+        description: 'Solar solutions for IT parks and corporate campuses provide clean energy for 24/7 operations. Our installations help technology companies reduce their carbon footprint while powering servers, data centers, and office spaces. With net metering, excess energy generated during weekends can be fed back to the grid for credits. Modern IT parks choose solar to meet sustainability goals while reducing operational costs by up to 60%.',
+        image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80',
+    },
+    {
+        title: 'Industrial Plants',
+        description: 'Heavy industrial plants require robust solar systems capable of meeting demanding energy needs. We specialize in installations for chemical plants, pharmaceutical facilities, steel mills, and manufacturing units. Our systems are designed with high-capacity inverters and durable mounting structures to handle industrial loads. Solar power helps industries achieve energy independence while complying with environmental regulations and reducing carbon emissions.',
+        image: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80',
+    },
+    {
+        title: 'Large Commercial Buildings',
+        description: 'Shopping malls, office complexes, and commercial centers benefit greatly from rooftop solar installations. Our integrated solutions utilize available roof space efficiently to generate power for lighting, air conditioning, elevators, and common areas. With high daytime electricity consumption, commercial buildings see immediate returns on investment. We handle everything from structural assessment to net metering setup, ensuring hassle-free adoption.',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+    },
 ];
 
 export default function ServicesPage() {
     return (
         <SiteLayout>
             {/* Hero */}
-            <section className="bg-hero-gradient pt-32 pb-16 relative overflow-hidden">
+            <section className="bg-hero-gradient pt-32 pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 40px, #fff 40px, #fff 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, #fff 40px, #fff 41px)' }} />
                 <div className="relative max-w-7xl mx-auto px-4 md:px-8 text-center">
-                    <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-5xl font-bold text-white mb-4">
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 20 }} 
+                        animate={{ opacity: 1, y: 0 }} 
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
+                    >
                         Our <span className="text-accent">Services</span>
                     </motion.h1>
-                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="text-green-100 text-lg max-w-2xl mx-auto">
-                        End-to-end solar energy solutions for commercial, residential, and franchise needs.
+                    <motion.p 
+                        initial={{ opacity: 0, y: 20 }} 
+                        animate={{ opacity: 1, y: 0 }} 
+                        transition={{ delay: 0.15 }} 
+                        className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto"
+                    >
+                        Comprehensive solar energy solutions tailored for commercial, residential, and franchise needs.
                     </motion.p>
                 </div>
             </section>
 
-            {/* Services */}
-            <section className="section-padding bg-white">
-                <div className="container-max space-y-10">
-                    {services.map((service, i) => (
-                        <motion.div
-                            key={service.title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            className={`rounded-3xl overflow-hidden ${service.highlight ? 'bg-primary text-white' : 'bg-gray-solar text-gray-900'}`}
-                        >
-                            <div className="p-8 md:p-12">
-                                <div className="flex flex-col md:flex-row gap-8">
-                                    <div className="flex-1">
-                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 ${service.highlight ? 'bg-white/15 text-white' : 'bg-primary/10 text-primary'}`}>
-                                            {service.icon}
-                                        </div>
-                                        {service.highlight && (
-                                            <span className="inline-block bg-accent text-white text-xs font-bold px-3 py-1 rounded-full mb-3">Most Popular</span>
-                                        )}
-                                        <h2 className="text-2xl md:text-3xl font-bold mb-4">{service.title}</h2>
-                                        <p className={`leading-relaxed mb-6 ${service.highlight ? 'text-green-100' : 'text-gray-600'}`}>
-                                            {service.description}
-                                        </p>
-                                        <Link
-                                            href="/contact"
-                                            className={`inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl transition-all ${service.highlight
-                                                    ? 'bg-accent hover:bg-accent-light text-white'
-                                                    : 'bg-primary hover:bg-primary-light text-white'
-                                                }`}
-                                        >
-                                            Get Quote →
-                                        </Link>
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className={`font-semibold mb-4 ${service.highlight ? 'text-green-200' : 'text-gray-500'}`}>
-                                            Key Features
-                                        </h3>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            {service.features.map((f) => (
-                                                <div key={f} className="flex items-center gap-3">
-                                                    <svg className={`w-5 h-5 flex-shrink-0 ${service.highlight ? 'text-accent' : 'text-primary'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                    <span className={`text-sm ${service.highlight ? 'text-green-100' : 'text-gray-600'}`}>{f}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Process steps */}
-            <section className="section-padding bg-gray-solar">
-                <div className="container-max">
-                    <div className="text-center mb-12">
-                        <span className="text-accent font-semibold text-sm tracking-wider uppercase mb-3 block">How We Work</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                            Our <span className="text-primary">Installation Process</span>
-                        </h2>
-                    </div>
-                    <div className="grid md:grid-cols-4 gap-6">
-                        {process_steps.map((s, i) => (
+            {/* Services - Three Enhanced Cards */}
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+                        {services.map((service, index) => (
                             <motion.div
-                                key={s.step}
+                                key={service.id}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
-                                className="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow relative"
+                                transition={{ delay: index * 0.1 }}
                             >
-                                <span className="text-5xl font-bold text-primary/10 mb-2 block">{s.step}</span>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">{s.title}</h3>
-                                <p className="text-gray-500 text-sm">{s.desc}</p>
-                                {i < process_steps.length - 1 && (
-                                    <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-gray-300 z-10">
-                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                <Link href={`/services/${service.id}`} className="block h-full">
+                                    <div className="group h-full min-h-[320px] md:min-h-[380px] bg-white rounded-2xl border border-gray-200 hover:border-[#023d2a] transition-all duration-300 shadow-md hover:shadow-2xl cursor-pointer overflow-hidden flex flex-col">
+                                        {/* Top accent bar */}
+                                        <div className="h-1.5 bg-gradient-to-r from-[#023d2a] via-[#034d35] to-[#023d2a] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                                        
+                                        {/* Card content */}
+                                        <div className="flex-1 p-6 md:p-8 flex flex-col items-center text-center">
+                                            {/* Icon container */}
+                                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gray-50 group-hover:bg-[#023d2a] flex items-center justify-center mb-5 md:mb-6 transition-all duration-300 shadow-inner group-hover:shadow-lg">
+                                                <div className="text-[#023d2a] group-hover:text-white transition-colors duration-300">
+                                                    {service.icon}
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Title */}
+                                            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-900 group-hover:text-[#023d2a] mb-3 md:mb-4 transition-colors duration-300">
+                                                {service.title}
+                                            </h3>
+                                            
+                                            {/* Description */}
+                                            <p className="text-gray-500 group-hover:text-gray-600 text-sm md:text-base leading-relaxed mb-5 md:mb-6 flex-1">
+                                                {service.description}
+                                            </p>
+                                            
+                                            {/* CTA indicator */}
+                                            <div className="flex items-center gap-2 text-[#023d2a] font-semibold text-sm md:text-base">
+                                                <span>Learn More</span>
+                                                <svg 
+                                                    className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                                                    fill="none" 
+                                                    stroke="currentColor" 
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Bottom hover indicator */}
+                                        <div className="h-1 bg-[#023d2a] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                     </div>
-                                )}
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Stats Bar */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 bg-white rounded-3xl p-8 md:p-12 shadow-lg"
+                    >
+                        <div className="text-center">
+                            <div className="text-4xl md:text-5xl font-bold text-[#023d2a] mb-2">500+</div>
+                            <div className="text-gray-500">Projects Completed</div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-4xl md:text-5xl font-bold text-[#023d2a] mb-2">50MW+</div>
+                            <div className="text-gray-500">Solar Capacity</div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-4xl md:text-5xl font-bold text-[#023d2a] mb-2">98%</div>
+                            <div className="text-gray-500">Client Satisfaction</div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-4xl md:text-5xl font-bold text-[#023d2a] mb-2">10+</div>
+                            <div className="text-gray-500">Years Experience</div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* We Are Experts Section - Vertical Layout */}
+            <section className="py-20 bg-gray-solar">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    {/* Section Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-16"
+                    >
+                        <span className="text-accent font-semibold text-sm tracking-wider uppercase mb-3 block">Industry Leaders</span>
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+                            We Are Experts in <span className="text-[#023d2a]">Commercial Solar Power</span>
+                        </h2>
+                    </motion.div>
+
+                    {/* Expertise Areas - Vertical Layout */}
+                    <div className="space-y-16">
+                        {expertiseAreas.map((area, index) => (
+                            <motion.div
+                                key={area.title}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center`}
+                            >
+                                {/* Image */}
+                                <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                    <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
+                                        <img 
+                                            src={area.image} 
+                                            alt={area.title}
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => {
+                                                (e.target as HTMLImageElement).src = `https://placehold.co/800x600/023d2a/FFFFFF?text=${encodeURIComponent(area.title)}`;
+                                            }}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#023d2a]/60 to-transparent" />
+                                        <div className="absolute bottom-6 left-6 right-6">
+                                            <h3 className="text-2xl md:text-3xl font-bold text-white">{area.title}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Content */}
+                                <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 lg:hidden">{area.title}</h3>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-[#023d2a] mb-4 hidden lg:block">{area.title}</h3>
+                                    <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                                        {area.description}
+                                    </p>
+                                </div>
                             </motion.div>
                         ))}
                     </div>
@@ -154,13 +232,38 @@ export default function ServicesPage() {
             </section>
 
             {/* CTA */}
-            <section className="section-padding bg-primary">
-                <div className="container-max text-center">
-                    <h2 className="text-3xl font-bold text-white mb-4">Ready to Go Solar?</h2>
-                    <p className="text-green-200 max-w-xl mx-auto mb-8">Get a free consultation and custom quote for your solar installation needs. Our experts are ready to help you save on energy costs.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-white font-semibold px-10 py-4 rounded-xl shadow-lg transition-all text-base">
-                        Get Free Consultation →
-                    </Link>
+            <section className="py-20 bg-[#023d2a]">
+                <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-3xl md:text-4xl font-bold text-white mb-4"
+                    >
+                        Ready to Go Solar?
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="text-green-200 text-lg max-w-2xl mx-auto mb-8"
+                    >
+                        Get a free consultation and custom quote for your solar installation needs. Our experts are ready to help you save on energy costs.
+                    </motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        <Link href="/contact" className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#023d2a] font-semibold px-10 py-4 rounded-xl shadow-lg transition-all text-lg">
+                            Get Free Consultation
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </Link>
+                    </motion.div>
                 </div>
             </section>
         </SiteLayout>

@@ -23,10 +23,12 @@ const AdminSchema = new Schema<IAdmin>(
   { timestamps: true }
 );
 
-AdminSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+AdminSchema.pre('save', async function (next: any) {
+  if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 AdminSchema.methods.comparePassword = async function (

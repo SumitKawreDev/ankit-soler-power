@@ -10,7 +10,7 @@ interface Lead {
     location: string;
     message?: string;
     category: 'commercial' | 'residential' | 'franchise';
-    electricityBillUrl?: string;
+    electricityBillPath?: string;
     createdAt: string;
 }
 
@@ -95,6 +95,7 @@ export default function AdminLeadsPage() {
                                     <th className="text-left px-4 py-3 font-semibold text-gray-600">Phone</th>
                                     <th className="text-left px-4 py-3 font-semibold text-gray-600 hidden md:table-cell">Location</th>
                                     <th className="text-left px-4 py-3 font-semibold text-gray-600">Category</th>
+                                    <th className="text-left px-4 py-3 font-semibold text-gray-600 hidden sm:table-cell">Bill</th>
                                     <th className="text-left px-4 py-3 font-semibold text-gray-600 hidden lg:table-cell">Date</th>
                                     <th className="text-right px-4 py-3 font-semibold text-gray-600">Actions</th>
                                 </tr>
@@ -115,6 +116,22 @@ export default function AdminLeadsPage() {
                                                 lead.category === 'residential' ? 'bg-green-100 text-green-700' :
                                                     'bg-purple-100 text-purple-700'
                                                 }`}>{lead.category}</span>
+                                        </td>
+                                        <td className="px-4 py-3 hidden sm:table-cell">
+                                            {lead.electricityBillPath ? (
+                                                <button
+                                                    onClick={() => setSelectedLead(lead)}
+                                                    className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                                                    title="View Bill"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                    <span className="hidden md:inline">View Bill</span>
+                                                </button>
+                                            ) : (
+                                                <span className="text-gray-300 text-xs">—</span>
+                                            )}
                                         </td>
                                         <td className="px-4 py-3 text-gray-400 text-xs hidden lg:table-cell">
                                             {new Date(lead.createdAt).toLocaleDateString('en-IN')}
@@ -158,13 +175,41 @@ export default function AdminLeadsPage() {
                                     <span className="text-gray-900 font-medium text-right max-w-[60%] capitalize">{item.value}</span>
                                 </div>
                             ))}
-                            {selectedLead.electricityBillUrl && (
-                                <div className="pt-2">
-                                    <a href={selectedLead.electricityBillUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline text-sm">
-                                        View Electricity Bill →
-                                    </a>
-                                </div>
-                            )}
+                            <div className="pt-3 border-t border-gray-100 mt-3">
+                                <span className="text-gray-500 text-sm">Electricity Bill</span>
+                                {selectedLead.electricityBillPath ? (
+                                    <div className="mt-2 flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                                        <div className="flex-shrink-0">
+                                            <svg className="w-10 h-10 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+                                                <path fill="white" d="M14 3v5h5M16.5 14h-9M16.5 17h-9M10 11H8.5" />
+                                            </svg>
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-gray-900 truncate">
+                                                {selectedLead.electricityBillPath.split('/').pop()}
+                                            </p>
+                                            <p className="text-xs text-gray-500">
+                                                {selectedLead.electricityBillPath.toLowerCase().endsWith('.pdf') ? 'PDF Document' : 'Image File'}
+                                            </p>
+                                        </div>
+                                        <a
+                                            href={`${typeof window !== 'undefined' ? window.location.origin : ''}${selectedLead.electricityBillPath}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex-shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-primary text-white text-xs font-medium rounded-lg hover:bg-primary/90 transition-colors"
+                                        >
+                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            View
+                                        </a>
+                                    </div>
+                                ) : (
+                                    <p className="mt-1 text-sm text-gray-400">Not uploaded</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

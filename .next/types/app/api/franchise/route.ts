@@ -1,4 +1,4 @@
-// File: C:\Users\sumit\OneDrive\Desktop\ankit-soler-power\app\api\franchise\route.ts
+// File: F:\ankit-soler-power\app\api\franchise\route.ts
 import * as entry from '../../../../../app/api/franchise/route.js'
 import type { NextRequest } from 'next/server.js'
 

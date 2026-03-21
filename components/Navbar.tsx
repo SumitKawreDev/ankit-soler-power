@@ -36,13 +36,16 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
 
   const isActive = (href: string) => pathname === href;
 
+  // Check if current page needs transparent navbar (only home page with hero)
+  const isHomePage = pathname === '/';
+
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg py-2' : 'bg-transparent py-4'
+        isScrolled || !isHomePage ? 'bg-white shadow-lg py-2' : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -55,10 +58,10 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
               </svg>
             </div>
             <div>
-              <span className={`font-bold text-lg leading-tight block ${isScrolled ? 'text-primary' : 'text-white'}`}>
+              <span className={`font-bold text-lg leading-tight block ${isScrolled || !isHomePage ? 'text-primary' : 'text-white'}`}>
                 Ankit Solar
               </span>
-              <span className={`text-xs leading-tight block ${isScrolled ? 'text-gray-500' : 'text-green-200'}`}>
+              <span className={`text-xs leading-tight block ${isScrolled || !isHomePage ? 'text-gray-500' : 'text-green-200'}`}>
                 Power Solutions
               </span>
             </div>
@@ -73,7 +76,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
                 className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                   isActive(link.href)
                     ? 'text-primary bg-green-50'
-                    : isScrolled
+                    : isScrolled || !isHomePage
                     ? 'text-gray-700 hover:text-primary hover:bg-green-50'
                     : 'text-white hover:text-green-200'
                 }`}
@@ -88,7 +91,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
                 className={`flex items-center gap-1 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                   pathname.startsWith('/projects')
                     ? 'text-primary bg-green-50'
-                    : isScrolled
+                    : isScrolled || !isHomePage
                     ? 'text-gray-700 hover:text-primary hover:bg-green-50'
                     : 'text-white hover:text-green-200'
                 }`}
@@ -135,7 +138,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
                 className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                   isActive(link.href)
                     ? 'text-primary bg-green-50'
-                    : isScrolled
+                    : isScrolled || !isHomePage
                     ? 'text-gray-700 hover:text-primary hover:bg-green-50'
                     : 'text-white hover:text-green-200'
                 }`}
@@ -160,7 +163,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`lg:hidden p-2 rounded-lg ${isScrolled ? 'text-gray-700' : 'text-white'}`}
+            className={`lg:hidden p-2 rounded-lg ${isScrolled || !isHomePage ? 'text-gray-700' : 'text-white'}`}
             aria-label="Toggle menu"
           >
             <motion.div animate={isMobileOpen ? 'open' : 'closed'} className="w-6 h-5 flex flex-col justify-between">
