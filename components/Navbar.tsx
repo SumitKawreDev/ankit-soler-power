@@ -50,20 +50,15 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-md group-hover:bg-primary-light transition-colors">
-              <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <div>
-              <span className={`font-bold text-lg leading-tight block ${isScrolled || !isHomePage ? 'text-primary' : 'text-white'}`}>
-                Ankit Solar
-              </span>
-              <span className={`text-xs leading-tight block ${isScrolled || !isHomePage ? 'text-gray-500' : 'text-green-200'}`}>
-                Power Solutions
-              </span>
+          {/* Logo - Dual version for light/dark backgrounds */}
+          <Link href="/" className="flex items-center group">
+            <div className="h-12 w-auto">
+              {/* Logo for all navbar backgrounds */}
+              <img
+                src="/logos/logo.png"
+                alt="Ankit Solar Power - ASP"
+                className="h-12 w-auto transition-all duration-300"
+              />
             </div>
           </Link>
 

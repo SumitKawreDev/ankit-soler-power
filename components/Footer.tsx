@@ -10,17 +10,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-bold text-lg block">Ankit Solar Power</span>
-                <span className="text-xs text-green-300">Enterprise Solar Solutions</span>
-              </div>
-            </div>
+            <Link href="/" className="inline-block mb-4">
+              <img
+                src="/logos/logo.png"
+                alt="Ankit Solar Power - ASP"
+                className="h-12 w-auto brightness-0 invert"
+              />
+            </Link>
             <p className="text-green-200 text-sm leading-relaxed mb-6">
               India&apos;s trusted commercial solar installation company. Powering hotels, factories, and industrial plants with clean, sustainable energy.
             </p>

@@ -46,11 +46,11 @@ export default function AdminLoginPage() {
                 <div className="p-8">
                     {/* Logo */}
                     <div className="text-center mb-8">
-                        <div className="w-14 h-14 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                            </svg>
-                        </div>
+                        <img
+                            src="/logos/logo.png"
+                            alt="Ankit Solar Power - ASP"
+                            className="h-16 w-auto mx-auto mb-4"
+                        />
                         <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
                         <p className="text-gray-500 text-sm mt-1">Ankit Solar Power Dashboard</p>
                     </div>

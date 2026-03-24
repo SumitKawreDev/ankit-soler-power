@@ -100,26 +100,26 @@ function SolarHeroAnimation() {
           <g transform="translate(20, 80)">
             {/* Panel Frame */}
             <rect x="0" y="0" width="280" height="100" rx="4" fill="#023d2a" stroke="#034d35" strokeWidth="2" />
-            
+
             {/* Panel Cells */}
             {[0, 1, 2, 3, 4, 5].map((col) => (
               <g key={col}>
-                <rect 
-                  x={10 + col * 45} 
-                  y="10" 
-                  width="40" 
-                  height="35" 
-                  fill="#0a5c40" 
-                  stroke="#023d2a" 
+                <rect
+                  x={10 + col * 45}
+                  y="10"
+                  width="40"
+                  height="35"
+                  fill="#0a5c40"
+                  stroke="#023d2a"
                   strokeWidth="1"
                 />
-                <rect 
-                  x={10 + col * 45} 
-                  y="50" 
-                  width="40" 
-                  height="35" 
-                  fill="#0a5c40" 
-                  stroke="#023d2a" 
+                <rect
+                  x={10 + col * 45}
+                  y="50"
+                  width="40"
+                  height="35"
+                  fill="#0a5c40"
+                  stroke="#023d2a"
                   strokeWidth="1"
                 />
                 {/* Cell reflection */}
@@ -135,7 +135,7 @@ function SolarHeroAnimation() {
                 />
               </g>
             ))}
-            
+
             {/* Stand */}
             <rect x="130" y="100" width="20" height="40" fill="#666" />
             <rect x="100" y="140" width="80" height="10" fill="#555" />
@@ -150,7 +150,7 @@ function SolarHeroAnimation() {
               r="5"
               fill="#f5a623"
               initial={{ opacity: 0, y: 0 }}
-              animate={{ 
+              animate={{
                 opacity: [0, 1, 0],
                 y: [0, -30]
               }}
@@ -186,7 +186,7 @@ function SolarHeroAnimation() {
 
           {/* Ground Line */}
           <line x1="0" y1="210" x2="320" y2="210" stroke="#023d2a" strokeWidth="2" opacity="0.3" />
-          
+
           {/* Gradient Definition */}
           <defs>
             <linearGradient id="panelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -204,7 +204,7 @@ function SolarHeroAnimation() {
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
         <svg width="45" height="45" viewBox="0 0 24 24" fill="#f5a623" opacity="0.8">
-          <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/>
+          <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z" />
         </svg>
       </motion.div>
 
@@ -387,9 +387,8 @@ function IndustriesSection() {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentSlide === index ? 'w-8 bg-accent' : 'bg-white/30 hover:bg-white/50'
-              }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === index ? 'w-8 bg-accent' : 'bg-white/30 hover:bg-white/50'
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -648,8 +647,8 @@ export default function HomePage() {
                 <Link href={service.href}>
                   <div
                     className={`group relative rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${service.highlight
-                        ? 'bg-primary text-white shadow-lg'
-                        : 'bg-white text-gray-900 shadow-md'
+                      ? 'bg-primary text-white shadow-lg'
+                      : 'bg-white text-gray-900 shadow-md'
                       }`}
                   >
                     {service.highlight && (

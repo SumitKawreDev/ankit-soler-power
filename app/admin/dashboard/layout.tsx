@@ -80,18 +80,15 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
 
             {/* Sidebar */}
             <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-primary-dark text-white transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-                <div className="p-5 border-b border-primary">
-                    <div className="flex items-center gap-2">
-                        <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-                            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span className="font-bold text-sm block">Ankit Solar</span>
-                            <span className="text-green-300 text-xs">Admin Panel</span>
-                        </div>
-                    </div>
+                <div className="p-4 border-b border-primary">
+                    <Link href="/" className="block">
+                        <img
+                            src="/logos/logo.png"
+                            alt="Ankit Solar Power - ASP"
+                            className="h-10 w-auto mx-auto"
+                        />
+                        <span className="text-green-300 text-xs mt-2 block text-center">Admin Panel</span>
+                    </Link>
                 </div>
 
                 <nav className="p-3 space-y-1">
@@ -101,8 +98,8 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
                             href={item.href}
                             onClick={() => setSidebarOpen(false)}
                             className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${pathname === item.href
-                                    ? 'bg-primary text-white'
-                                    : 'text-green-200 hover:bg-primary hover:text-white'
+                                ? 'bg-primary text-white'
+                                : 'text-green-200 hover:bg-primary hover:text-white'
                                 }`}
                         >
                             {item.icon}

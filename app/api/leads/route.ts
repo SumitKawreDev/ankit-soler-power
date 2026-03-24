@@ -4,26 +4,45 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Lead from '@/models/Lead';
 import { verifyAdminToken } from '@/lib/auth';
-import { mkdir, writeFile } from 'fs/promises';
-import { existsSync } from 'fs';
-import { join } from 'path';
-import { randomBytes } from 'crypto';
+import cloudinary from '@/lib/cloudinary';
 
-const UPLOAD_DIR = join(process.cwd(), 'public', 'uploads', 'bills');
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 
-async function ensureUploadDir() {
-  if (!existsSync(UPLOAD_DIR)) {
-    await mkdir(UPLOAD_DIR, { recursive: true });
-  }
-}
+async function uploadToCloudinary(file: File): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log('Converting file to buffer...');
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      console.log('Buffer created, size:', buffer.length, 'bytes');
 
-function generateUniqueFilename(originalName: string): string {
-  const timestamp = Date.now();
-  const random = randomBytes(8).toString('hex');
-  const extension = originalName.split('.').pop() || 'jpg';
-  return `${timestamp}-${random}.${extension}`;
+      console.log('Starting Cloudinary upload_stream...');
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'ankit-solar/bills',
+          resource_type: 'auto',
+          allowed_formats: ['jpg', 'jpeg', 'png', 'pdf'],
+        },
+        (error, result) => {
+          if (error) {
+            console.error('Cloudinary upload error:', error);
+            reject(error);
+          } else if (result) {
+            console.log('Cloudinary upload successful, URL:', result.secure_url);
+            resolve(result.secure_url);
+          } else {
+            reject(new Error('Upload failed - no result returned'));
+          }
+        }
+      );
+
+      stream.end(buffer);
+    } catch (error) {
+      console.error('Buffer conversion error:', error);
+      reject(error);
+    }
+  });
 }
 
 export async function GET(req: NextRequest) {
@@ -52,6 +71,15 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    // Validate environment variables
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('Missing Cloudinary environment variables');
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      );
+    }
+
     await connectDB();
     
     // Check if request is multipart/form-data
@@ -65,6 +93,14 @@ export async function POST(req: NextRequest) {
 
     const formData = await req.formData();
     
+    // Debug: Log file reception
+    const billFile = formData.get('electricityBill') as File | null;
+    console.log('File received:', billFile ? {
+      name: billFile.name,
+      type: billFile.type,
+      size: billFile.size,
+    } : 'No file');
+    
     // Extract form fields
     const name = formData.get('name') as string;
     const phone = formData.get('phone') as string;
@@ -74,7 +110,6 @@ export async function POST(req: NextRequest) {
     const category = formData.get('category') as 'commercial' | 'residential' | 'franchise';
     const companyName = formData.get('companyName') as string;
     const occupation = formData.get('occupation') as string;
-    const billFile = formData.get('electricityBill') as File | null;
 
     // Validate required fields
     if (!name || !phone || !location || !category) {
@@ -84,7 +119,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    let electricityBillPath: string | undefined;
+    let billImage: string | undefined;
 
     // Handle file upload if present
     if (billFile) {
@@ -104,20 +139,19 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Ensure upload directory exists
-      await ensureUploadDir();
-
-      // Generate unique filename
-      const filename = generateUniqueFilename(billFile.name);
-      const filepath = join(UPLOAD_DIR, filename);
-
-      // Save file to disk
-      const bytes = await billFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      await writeFile(filepath, buffer);
-
-      // Store relative path for database
-      electricityBillPath = `/uploads/bills/${filename}`;
+      // Upload to Cloudinary
+      try {
+        console.log('Starting Cloudinary upload...');
+        billImage = await uploadToCloudinary(billFile);
+        console.log('Cloudinary upload successful:', billImage);
+      } catch (uploadError) {
+        console.error('Cloudinary upload error:', uploadError);
+        const errorMessage = uploadError instanceof Error ? uploadError.message : 'Unknown error';
+        return NextResponse.json(
+          { error: `Failed to upload file: ${errorMessage}` },
+          { status: 500 }
+        );
+      }
     }
 
     // Create lead document
@@ -128,7 +162,7 @@ export async function POST(req: NextRequest) {
       location,
       message,
       category,
-      electricityBillPath,
+      billImage,
       companyName: companyName || undefined,
       occupation: occupation || undefined,
     });
@@ -141,15 +175,16 @@ export async function POST(req: NextRequest) {
         message: 'Inquiry submitted successfully',
         data: {
           leadId: lead._id,
-          electricityBillPath,
+          billImage,
         },
       },
       { status: 201 }
     );
   } catch (error) {
     console.error('POST lead error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

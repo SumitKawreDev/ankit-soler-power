@@ -7,7 +7,8 @@ export interface ILead extends Document {
   location: string;
   message?: string;
   category: 'commercial' | 'residential' | 'franchise';
-  electricityBillPath?: string;
+  electricityBillPath?: string; // Legacy field - kept for backward compatibility
+  billImage?: string;           // Cloudinary URL field
   companyName?: string;
   occupation?: string;
   createdAt: Date;
@@ -22,7 +23,8 @@ const LeadSchema = new Schema<ILead>(
     location: { type: String, required: true, trim: true },
     message: { type: String },
     category: { type: String, enum: ['commercial', 'residential', 'franchise'], required: true },
-    electricityBillPath: { type: String },
+    electricityBillPath: { type: String }, // Legacy field
+    billImage: { type: String },           // Cloudinary URL field
     companyName: { type: String, trim: true },
     occupation: { type: String, trim: true },
   },

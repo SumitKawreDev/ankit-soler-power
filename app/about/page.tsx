@@ -37,115 +37,7 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
     );
 }
 
-// Animated Solar Installation Illustration
-function SolarInstallationAnimation() {
-    return (
-        <div className="relative w-full h-full min-h-[400px]">
-            {/* Sun with animated rays */}
-            <motion.div
-                className="absolute top-4 right-4 md:top-8 md:right-8"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            >
-                <svg width="100" height="100" viewBox="0 0 100 100" className="text-accent">
-                    <circle cx="50" cy="50" r="20" fill="currentColor" />
-                    {[...Array(12)].map((_, i) => (
-                        <motion.line
-                            key={i}
-                            x1="50" y1="50"
-                            x2={50 + 35 * Math.cos((i * 30 * Math.PI) / 180)}
-                            y2={50 + 35 * Math.sin((i * 30 * Math.PI) / 180)}
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                            initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
-                            transition={{ delay: i * 0.1, duration: 0.5 }}
-                        />
-                    ))}
-                </svg>
-            </motion.div>
 
-            {/* Building with solar panels */}
-            <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute bottom-0 left-1/2 -translate-x-1/2"
-            >
-                <svg width="280" height="200" viewBox="0 0 280 200" fill="none">
-                    {/* Building */}
-                    <rect x="60" y="80" width="160" height="120" fill="#e8f4f0" stroke="#023d2a" strokeWidth="2" rx="4" />
-                    
-                    {/* Windows */}
-                    <rect x="80" y="100" width="30" height="30" fill="#023d2a" opacity="0.3" rx="2" />
-                    <rect x="125" y="100" width="30" height="30" fill="#023d2a" opacity="0.3" rx="2" />
-                    <rect x="170" y="100" width="30" height="30" fill="#023d2a" opacity="0.3" rx="2" />
-                    <rect x="80" y="145" width="30" height="30" fill="#023d2a" opacity="0.3" rx="2" />
-                    <rect x="125" y="145" width="30" height="30" fill="#023d2a" opacity="0.3" rx="2" />
-                    <rect x="170" y="145" width="30" height="30" fill="#023d2a" opacity="0.3" rx="2" />
-                    
-                    {/* Solar panels on roof */}
-                    <motion.g
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8, duration: 0.5 }}
-                    >
-                        <rect x="50" y="55" width="180" height="25" fill="#023d2a" rx="3" />
-                        <line x1="80" y1="55" x2="80" y2="80" stroke="#034d35" strokeWidth="2" />
-                        <line x1="110" y1="55" x2="110" y2="80" stroke="#034d35" strokeWidth="2" />
-                        <line x1="140" y1="55" x2="140" y2="80" stroke="#034d35" strokeWidth="2" />
-                        <line x1="170" y1="55" x2="170" y2="80" stroke="#034d35" strokeWidth="2" />
-                        <line x1="200" y1="55" x2="200" y2="80" stroke="#034d35" strokeWidth="2" />
-                        
-                        {/* Animated energy lines */}
-                        <motion.circle
-                            cx="90" cy="42" r="4" fill="#f5a623"
-                            animate={{ opacity: [0, 1, 0], y: [0, -15] }}
-                            transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
-                        />
-                        <motion.circle
-                            cx="140" cy="38" r="4" fill="#f5a623"
-                            animate={{ opacity: [0, 1, 0], y: [0, -15] }}
-                            transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                        />
-                        <motion.circle
-                            cx="190" cy="42" r="4" fill="#f5a623"
-                            animate={{ opacity: [0, 1, 0], y: [0, -15] }}
-                            transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
-                        />
-                    </motion.g>
-                    
-                    {/* Ground */}
-                    <rect x="0" y="195" width="280" height="5" fill="#023d2a" opacity="0.2" />
-                </svg>
-            </motion.div>
-
-            {/* Floating energy icons */}
-            <motion.div
-                className="absolute top-1/2 left-4"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="#f5a623">
-                    <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/>
-                </svg>
-            </motion.div>
-
-            <motion.div
-                className="absolute top-1/3 right-8"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-                <svg width="35" height="35" viewBox="0 0 24 24" fill="#023d2a" opacity="0.6">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-            </motion.div>
-        </div>
-    );
-}
-
-// Accurate India Map Component
 function IndiaMapComparison() {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
@@ -230,7 +122,7 @@ function IndiaMapComparison() {
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Current Solar Status</h3>
                     <p className="text-3xl font-bold text-primary">~90 GW</p>
                 </div>
-                
+
                 <div className="relative aspect-[3/4] w-full max-w-[250px] mx-auto">
                     <svg viewBox="0 0 200 280" className="w-full h-full">
                         {/* Simplified but recognizable India map outline */}
@@ -251,7 +143,7 @@ function IndiaMapComparison() {
                             animate={isInView ? { pathLength: 1 } : {}}
                             transition={{ duration: 2, ease: "easeInOut" }}
                         />
-                        
+
                         {/* Solar installation dots - Current */}
                         {currentLocations.map((loc, i) => (
                             <motion.circle
@@ -267,7 +159,7 @@ function IndiaMapComparison() {
                         ))}
                     </svg>
                 </div>
-                
+
                 <div className="mt-4 text-center text-sm text-gray-500">
                     Existing solar installations across India
                 </div>
@@ -288,7 +180,7 @@ function IndiaMapComparison() {
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Projected Solar Growth</h3>
                     <p className="text-3xl font-bold text-primary">~500 GW</p>
                 </div>
-                
+
                 <div className="relative aspect-[3/4] w-full max-w-[250px] mx-auto">
                     <svg viewBox="0 0 200 280" className="w-full h-full">
                         {/* India outline */}
@@ -309,7 +201,7 @@ function IndiaMapComparison() {
                             animate={isInView ? { pathLength: 1 } : {}}
                             transition={{ duration: 2, ease: "easeInOut" }}
                         />
-                        
+
                         {/* Solar installation dots - Projected (more dense) */}
                         {projectedLocations.map((loc, i) => (
                             <motion.circle
@@ -323,7 +215,7 @@ function IndiaMapComparison() {
                                 transition={{ delay: 0.5 + i * 0.03, duration: 0.3 }}
                             />
                         ))}
-                        
+
                         {/* Pulse effects on major locations */}
                         <motion.circle
                             cx="85" cy="160" r="8"
@@ -354,7 +246,7 @@ function IndiaMapComparison() {
                         />
                     </svg>
                 </div>
-                
+
                 <div className="mt-4 text-center text-sm text-gray-500">
                     Projected solar expansion over next decade
                 </div>
@@ -363,53 +255,47 @@ function IndiaMapComparison() {
     );
 }
 
+
 export default function AboutPage() {
     return (
         <SiteLayout>
-            {/* NEW: Introduction Section - Unique from Home Page */}
+            {/* Introduction Section */}
             <section className="bg-white pt-28 pb-16 md:pt-32 md:pb-20">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+                    <div className="grid md:grid-cols-2 gap-8 md:gap-8 lg:gap-10 items-center">
                         {/* Left: Content */}
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6 }}
+                            className="text-center md:text-left"
                         >
                             <span className="text-accent font-semibold text-sm tracking-wider uppercase mb-4 block">
                                 Welcome to Ankit Solar Power
                             </span>
-                            
-                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-5 leading-tight">
                                 About{' '}
                                 <span className="text-primary">Ankit Solar Power</span>
                             </h1>
-                            
-                            <div className="space-y-4 text-gray-600 leading-relaxed mb-6">
+
+                            <div className="space-y-3 text-gray-600 text-sm sm:text-base leading-relaxed mb-6">
                                 <p>
-                                    Ankit Solar Power is a leading solar energy solutions provider specializing in both commercial
-                                    and residential solar installations. With over a decade of experience, we have established
-                                    ourselves as a trusted partner for businesses and homeowners looking to harness the power of
-                                    clean, renewable energy.
+                                    Ankit Solar Power is a leading solar energy solutions provider specializing in commercial
+                                    and residential installations. With over a decade of experience, we are a trusted partner
+                                    for businesses and homeowners across India.
                                 </p>
                                 <p>
-                                    Our expertise spans large-scale commercial projects for hotels, factories, and industrial
-                                    facilities, as well as residential installations for homes across India. We provide
-                                    end-to-end solutions from site assessment and system design to installation and maintenance.
-                                </p>
-                                <p>
-                                    By choosing Ankit Solar Power, customers can reduce their electricity bills by up to 80%,
-                                    achieve energy independence, and contribute to a sustainable future. Our commitment to quality,
-                                    reliability, and customer satisfaction has earned us the trust of over 500 satisfied clients
-                                    and 13+ franchise partners across multiple states.
+                                    From large-scale commercial projects to residential setups, we deliver end-to-end solutions
+                                    — helping customers reduce electricity bills by up to 80% while contributing to a sustainable future.
                                 </p>
                             </div>
-                            
-                            <div className="space-y-4 mb-8">
+
+                            <div className="space-y-3">
                                 {[
                                     'End-to-end solar solutions for businesses',
                                     'Premium quality panels and inverters',
-                                    'Significant cost savings on electricity bills',
+                                    'Up to 80% savings on electricity bills',
                                     'Expert installation with ongoing support'
                                 ].map((item, i) => (
                                     <motion.div
@@ -417,28 +303,36 @@ export default function AboutPage() {
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.3 + i * 0.1 }}
-                                        className="flex items-center gap-3"
+                                        className="flex items-center gap-3 justify-center md:justify-start"
                                     >
                                         <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                                             <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span className="text-gray-700">{item}</span>
+                                        <span className="text-gray-700 text-sm sm:text-base">{item}</span>
                                     </motion.div>
                                 ))}
                             </div>
                         </motion.div>
-                        
-                        {/* Right: Animated Illustration */}
+
+                        {/* Right: About Worker Image */}
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-gray-solar rounded-3xl p-6 md:p-8 h-full flex items-center justify-center"
+                            className="flex items-center justify-center"
                         >
-                            <div className="w-full h-full min-h-[400px] flex items-center justify-center">
-                                <SolarInstallationAnimation />
+                            <div
+                                className="group w-full rounded-2xl border border-gray-200 p-3 sm:p-4 overflow-hidden transition-shadow duration-300 hover:shadow-xl shadow-lg"
+                                style={{ backgroundColor: '#f8fafc' }}
+                            >
+                                <img
+                                    src="/images/about-worker.png"
+                                    alt="Solar technician at work"
+                                    className="w-full object-contain rounded-xl transition-transform duration-300 ease-in-out group-hover:scale-[1.04]"
+                                    style={{ height: 'auto', maxHeight: '400px' }}
+                                />
                             </div>
                         </motion.div>
                     </div>
@@ -463,7 +357,7 @@ export default function AboutPage() {
                             We provide comprehensive solar solutions tailored to your commercial and industrial needs
                         </p>
                     </motion.div>
-                    
+
                     <div className="grid md:grid-cols-3 gap-6">
                         {[
                             {
@@ -528,20 +422,20 @@ export default function AboutPage() {
                                 Over a Decade of{' '}
                                 <span className="text-primary">Solar Excellence</span>
                             </h2>
-                            
+
                             <div className="space-y-6 text-gray-600 leading-relaxed">
                                 <p>
-                                    Founded in 2014, Ankit Solar Power began with a simple mission: to make solar energy 
-                                    accessible and affordable for businesses across India. What started as a small team 
+                                    Founded in 2014, Ankit Solar Power began with a simple mission: to make solar energy
+                                    accessible and affordable for businesses across India. What started as a small team
                                     with a big vision has grown into one of the country's most trusted solar installation companies.
                                 </p>
                                 <p>
-                                    Today, we have successfully completed over 500 projects, installed 20 MW of solar capacity, 
-                                    and built a network of 13+ franchise partners spanning multiple states. Our expertise spans 
+                                    Today, we have successfully completed over 500 projects, installed 20 MW of solar capacity,
+                                    and built a network of 13+ franchise partners spanning multiple states. Our expertise spans
                                     hotels, factories, warehouses, and commercial buildings.
                                 </p>
                             </div>
-                            
+
                             <div className="grid grid-cols-2 gap-6 mt-8">
                                 {[
                                     { value: 500, suffix: '+', label: 'Projects Completed' },
@@ -563,7 +457,7 @@ export default function AboutPage() {
                                 ))}
                             </div>
                         </motion.div>
-                        
+
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -614,7 +508,7 @@ export default function AboutPage() {
                             Why Choose Ankit Solar Power?
                         </h2>
                     </motion.div>
-                    
+
                     <div className="grid md:grid-cols-2 gap-6">
                         {[
                             {
@@ -672,13 +566,13 @@ export default function AboutPage() {
                             The Solar Revolution in India
                         </h2>
                         <p className="text-gray-600 max-w-3xl mx-auto">
-                            India is rapidly transforming its energy landscape. See how solar power is growing and 
+                            India is rapidly transforming its energy landscape. See how solar power is growing and
                             creating opportunities for businesses like yours.
                         </p>
                     </motion.div>
-                    
+
                     <IndiaMapComparison />
-                    
+
                     {/* Growth Stats */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -705,6 +599,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
+
             {/* Mission & Vision Section */}
             <section className="bg-gray-solar py-16 md:py-20">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -720,7 +615,7 @@ export default function AboutPage() {
                             Mission & Vision
                         </h2>
                     </motion.div>
-                    
+
                     <div className="grid md:grid-cols-2 gap-8">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
@@ -736,13 +631,13 @@ export default function AboutPage() {
                             </div>
                             <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
                             <p className="text-green-100 leading-relaxed">
-                                To provide reliable, affordable, and sustainable solar solutions that empower businesses 
-                                and industries to achieve energy independence. We are committed to delivering world-class 
-                                installations with unmatched quality, enabling our clients to reduce costs while contributing 
+                                To provide reliable, affordable, and sustainable solar solutions that empower businesses
+                                and industries to achieve energy independence. We are committed to delivering world-class
+                                installations with unmatched quality, enabling our clients to reduce costs while contributing
                                 to a cleaner environment.
                             </p>
                         </motion.div>
-                        
+
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -758,11 +653,146 @@ export default function AboutPage() {
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
                             <p className="text-gray-600 leading-relaxed">
-                                To become India's most trusted solar energy partner with a pan-India franchise network 
-                                spanning every state. We envision a future where clean solar power is the default choice 
-                                for all energy needs, driving innovation and establishing India as a global leader in 
+                                To become India's most trusted solar energy partner with a pan-India franchise network
+                                spanning every state. We envision a future where clean solar power is the default choice
+                                for all energy needs, driving innovation and establishing India as a global leader in
                                 renewable energy adoption.
                             </p>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Company & Partners Section */}
+            <section className="bg-white py-16 md:py-20">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    {/* Company Logos Row */}
+                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 lg:gap-24 mb-12">
+                        {/* ASP */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="flex flex-col items-center"
+                        >
+                            <img
+                                src="/logos/logo.png"
+                                alt="ASP (Ankit Solar Power)"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
+                            <span className="mt-2 text-sm font-medium text-gray-700">ASP (Ankit Solar Power)</span>
+                        </motion.div>
+
+                        {/* ASP Helios Power */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="flex flex-col items-center"
+                        >
+                            <img
+                                src="/logos/asp-helios.png"
+                                alt="ASP Helios Power"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
+                            <span className="mt-2 text-sm font-medium text-gray-700">ASP Helios Power</span>
+                        </motion.div>
+
+                        {/* ASP Green Energy */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="flex flex-col items-center"
+                        >
+                            <img
+                                src="/logos/asp-green.png"
+                                alt="ASP Green Energy"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
+                            <span className="mt-2 text-sm font-medium text-gray-700">ASP Green Energy</span>
+                        </motion.div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-200 my-10"></div>
+
+                    {/* Partner Section Title */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="text-center mb-10"
+                    >
+                        <p className="text-lg md:text-xl font-medium text-gray-800">
+                            Authorised Channel Partners of
+                        </p>
+                    </motion.div>
+
+                    {/* Partner Logos Row */}
+                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
+                        {/* Reliance */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="flex items-center justify-center"
+                        >
+                            <img
+                                src="/logos/reliance.png"
+                                alt="Reliance"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
+                        </motion.div>
+
+                        {/* Tata Power Solar */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="flex items-center justify-center"
+                        >
+                            <img
+                                src="/logos/tata-power.png"
+                                alt="Tata Power Solar"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
+                        </motion.div>
+
+                        {/* Waaree */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="flex items-center justify-center"
+                        >
+                            <img
+                                src="/logos/waaree.png"
+                                alt="Waaree"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
+                        </motion.div>
+
+                        {/* Rayzon */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="flex items-center justify-center"
+                        >
+                            <img
+                                src="/logos/rayzon.png"
+                                alt="Rayzon"
+                                className="h-[55px] md:h-[75px] w-auto object-contain"
+                            />
                         </motion.div>
                     </div>
                 </div>
