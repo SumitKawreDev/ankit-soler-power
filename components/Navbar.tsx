@@ -36,17 +36,15 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
 
   const isActive = (href: string) => pathname === href;
 
-  // Check if current page needs transparent navbar (only home page with hero)
-  const isHomePage = pathname === '/';
+
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || !isHomePage ? 'bg-white shadow-lg py-2' : 'bg-transparent py-4'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white py-2"
+      style={{ boxShadow: '0 2px 10px rgba(0,0,0,0.05)' }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
@@ -71,9 +69,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
                 className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                   isActive(link.href)
                     ? 'text-primary bg-green-50'
-                    : isScrolled || !isHomePage
-                    ? 'text-gray-700 hover:text-primary hover:bg-green-50'
-                    : 'text-white hover:text-green-200'
+                    : 'text-gray-700 hover:text-primary hover:bg-green-50'
                 }`}
               >
                 {link.label}
@@ -86,9 +82,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
                 className={`flex items-center gap-1 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                   pathname.startsWith('/projects')
                     ? 'text-primary bg-green-50'
-                    : isScrolled || !isHomePage
-                    ? 'text-gray-700 hover:text-primary hover:bg-green-50'
-                    : 'text-white hover:text-green-200'
+                    : 'text-gray-700 hover:text-primary hover:bg-green-50'
                 }`}
               >
                 Projects
@@ -133,9 +127,7 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
                 className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                   isActive(link.href)
                     ? 'text-primary bg-green-50'
-                    : isScrolled || !isHomePage
-                    ? 'text-gray-700 hover:text-primary hover:bg-green-50'
-                    : 'text-white hover:text-green-200'
+                    : 'text-gray-700 hover:text-primary hover:bg-green-50'
                 }`}
               >
                 {link.label}
@@ -158,13 +150,13 @@ export default function Navbar({ onGetQuote }: NavbarProps) {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`lg:hidden p-2 rounded-lg ${isScrolled || !isHomePage ? 'text-gray-700' : 'text-white'}`}
+            className="lg:hidden p-2 rounded-lg text-gray-700"
             aria-label="Toggle menu"
           >
             <motion.div animate={isMobileOpen ? 'open' : 'closed'} className="w-6 h-5 flex flex-col justify-between">
               <motion.span
                 variants={{ open: { rotate: 45, y: 8 }, closed: { rotate: 0, y: 0 } }}
-                className={`block h-0.5 w-full rounded ${isScrolled ? 'bg-gray-700' : 'bg-white'}`}
+                className="block h-0.5 w-full rounded bg-gray-700"
               />
               <motion.span
                 variants={{ open: { opacity: 0 }, closed: { opacity: 1 } }}
