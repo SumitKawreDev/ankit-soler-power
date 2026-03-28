@@ -114,12 +114,12 @@ export default function AdminDashboardPage() {
                         <h2 className="font-bold text-gray-900">Recent Leads</h2>
                         <Link href="/admin/dashboard/leads" className="text-primary text-sm font-medium hover:underline">View All →</Link>
                     </div>
-                    <div className="divide-y divide-gray-50">
+                    <div>
                         {recentLeads.length > 0 ? recentLeads.map((lead) => (
-                            <div key={lead._id} className="px-5 py-3 flex items-center justify-between">
+                            <div key={lead._id} className="px-5 py-3 flex items-center justify-between min-h-[60px]">
                                 <div>
                                     <p className="font-medium text-gray-900 text-sm">{lead.name}</p>
-                                    <p className="text-gray-400 text-xs">{lead.phone} · {lead.location}</p>
+                                    <p className="text-gray-400 text-sm leading-tight">{lead.phone} · {lead.location}</p>
                                 </div>
                                 <span className={`text-xs font-semibold px-2.5 py-1 rounded-full capitalize ${lead.category === 'commercial' ? 'bg-primary/10 text-primary' :
                                     lead.category === 'residential' ? 'bg-green-100 text-green-700' :
@@ -138,12 +138,12 @@ export default function AdminDashboardPage() {
                         <h2 className="font-bold text-gray-900">Recent Projects</h2>
                         <Link href="/admin/dashboard/projects" className="text-primary text-sm font-medium hover:underline">View All →</Link>
                     </div>
-                    <div className="divide-y divide-gray-50">
+                    <div>
                         {recentProjects.length > 0 ? recentProjects.map((project) => (
-                            <div key={project._id} className="px-5 py-3 flex items-center justify-between">
+                            <div key={project._id} className="px-5 py-3 flex items-center justify-between min-h-[60px]">
                                 <div>
                                     <p className="font-medium text-gray-900 text-sm">{project.name}</p>
-                                    <p className="text-gray-400 text-xs">{project.capacity} · {project.state}</p>
+                                    <p className="text-gray-400 text-sm leading-tight">{project.capacity} · {project.state}</p>
                                 </div>
                                 <span className={`text-xs font-semibold px-2.5 py-1 rounded-full capitalize ${project.category === 'commercial' ? 'bg-primary/10 text-primary' : 'bg-green-100 text-green-700'
                                     }`}>{project.category}</span>

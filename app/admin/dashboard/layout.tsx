@@ -72,58 +72,65 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 flex">
+        <div className="min-h-screen bg-gray-50">
             {/* Sidebar overlay on mobile */}
             {sidebarOpen && (
                 <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
             )}
 
-            {/* Sidebar */}
-            <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-primary-dark text-white transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-                <div className="p-4 border-b border-primary">
-                    <Link href="/" className="block">
-                        <img
-                            src="/logos/logo.png"
-                            alt="Ankit Solar Power - ASP"
-                            className="h-10 w-auto mx-auto"
-                        />
-                        <span className="text-green-300 text-xs mt-2 block text-center">Admin Panel</span>
-                    </Link>
-                </div>
-
-                <nav className="p-3 space-y-1">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setSidebarOpen(false)}
-                            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${pathname === item.href
-                                ? 'bg-primary text-white'
-                                : 'text-green-200 hover:bg-primary hover:text-white'
-                                }`}
-                        >
-                            {item.icon}
-                            {item.label}
+            {/* Sidebar – always fixed, full height */}
+            <aside
+                className={`fixed top-0 left-0 h-screen w-64 bg-primary-dark text-white z-50 overflow-hidden transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+            >
+                <div className="h-full w-full flex flex-col">
+                    {/* Top – Logo */}
+                    <div className="p-4 border-b border-primary shrink-0">
+                        <Link href="/" className="block">
+                            <img
+                                src="/logos/logo.png"
+                                alt="Ankit Solar Power - ASP"
+                                className="h-10 w-auto mx-auto"
+                            />
+                            <span className="text-green-300 text-xs mt-2 block text-center">Admin Panel</span>
                         </Link>
-                    ))}
-                </nav>
+                    </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-primary">
-                    <Link href="/" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-green-300 hover:bg-primary hover:text-white transition-colors mb-1">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        Visit Website
-                    </Link>
-                    <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-red-300 hover:bg-red-900/30 hover:text-red-200 transition-colors w-full">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-                        Logout
-                    </button>
+                    {/* Middle – Navigation (scrollable if many items) */}
+                    <nav className="p-3 space-y-1 flex-1 overflow-y-auto">
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={() => setSidebarOpen(false)}
+                                className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${pathname === item.href
+                                    ? 'bg-primary text-white'
+                                    : 'text-green-200 hover:bg-primary hover:text-white'
+                                    }`}
+                            >
+                                {item.icon}
+                                {item.label}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    {/* Bottom – Actions (always pinned to bottom) */}
+                    <div className="p-3 border-t border-primary shrink-0">
+                        <Link href="/" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-green-300 hover:bg-primary hover:text-white transition-colors mb-1">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                            Visit Website
+                        </Link>
+                        <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-red-300 hover:bg-red-900/30 hover:text-red-200 transition-colors w-full">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </aside>
 
-            {/* Main content */}
-            <div className="flex-1 flex flex-col min-h-screen">
+            {/* Main content – offset by sidebar width on desktop */}
+            <div className="lg:ml-64 flex flex-col min-h-screen">
                 {/* Top bar */}
-                <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
+                <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 flex items-center justify-between sticky top-0 z-10">
                     <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
                     </button>
